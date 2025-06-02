@@ -4,6 +4,8 @@ import logging
 import pandas as pd
 from functools import partial
 from sklearn.model_selection import StratifiedKFold
+from peft import LoraConfig, get_peft_model
+from peft import get_peft_model
 from transformers import AutoImageProcessor, SiglipForImageClassification
 
 import torch
@@ -43,8 +45,19 @@ if __name__ == "__main__":
     # output_index = [f'{i}' for i in range(0, output_size)]
 
     # image_processor = AutoImageProcessor.from_pretrained("google/siglip2-so400m-patch16-384")
-    model = SiglipForImageClassification.from_pretrained('google/siglip2-large-patch16-384', num_labels=393).to(device)
 
+    config = LoraConfig(
+        r=16,
+        lora_alpha=16,
+        lora_dropout=0.1,
+        target_modules=["k_proj", "q_proj"],
+        bias="none",
+        modules_to_save=["classifier"],
+    )
+    model = SiglipForImageClassification.from_pretrained('google/siglip2-giant-opt-patch16-384', num_labels=393).to(device)
+    print(model)
+    model = get_peft_model(model, config)
+    
     transform_train = transforms.Compose([
         transforms.Resize((421, 421)),
         transforms.RandomCrop(384, padding=8),
