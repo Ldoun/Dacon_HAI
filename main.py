@@ -13,7 +13,6 @@ from torch import optim, nn
 from torch.utils.data import DataLoader
 from torchvision import transforms
 
-
 from data import DataSet, ImageFolder
 from trainer import Trainer
 from config import get_args
@@ -25,11 +24,8 @@ if __name__ == "__main__":
     seed_everything(args.seed) #fix seed
     device = torch.device('cuda:0') #use cuda:0
 
-    if args.continue_train > 0:
-        result_path = args.continue_from_folder
-    else:
-        result_path = os.path.join(args.result_path, args.model +'_'+str(len(os.listdir(args.result_path))))
-        os.makedirs(result_path)
+    result_path = os.path.join(args.result_path, args.model +'_'+str(len(os.listdir(args.result_path))))
+    os.makedirs(result_path)
     
     logging.basicConfig(level=logging.INFO, format='%(message)s')
     logger = logging.getLogger()
@@ -37,14 +33,6 @@ if __name__ == "__main__":
     logger.info(args)
     save_to_json(vars(args), os.path.join(result_path, 'config.json'))
     sys.excepthook = partial(handle_unhandled_exception,logger=logger)
-
-    input_size = None
-    output_size = None
-
-    # prediction = pd.read_csv(args.submission)
-    # output_index = [f'{i}' for i in range(0, output_size)]
-
-    # image_processor = AutoImageProcessor.from_pretrained("google/siglip2-so400m-patch16-384")
 
     config = LoraConfig(
         r=16,
@@ -75,10 +63,7 @@ if __name__ == "__main__":
 
     train_dataset = ImageFolder(root=args.train_path, transform=transform_train)
     valid_dataset = ImageFolder(root=args.valid_path, transform=transform_test)
-    
-    # train_dataset = DataSet(root=args.train_path, processor=image_processor)#, transform=transform_test)
-    # valid_dataset = DataSet(root=args.valid_path, processor=image_processor)#, transform=transform_test)
-    
+        
     loss_fn = nn.CrossEntropyLoss()
     optimizer = optim.Adam(model.parameters(), lr=args.lr)
     scheduler = get_sch(args.scheduler, optimizer)
