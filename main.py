@@ -5,7 +5,6 @@ import pandas as pd
 from functools import partial
 from sklearn.model_selection import StratifiedKFold
 from peft import LoraConfig, get_peft_model
-from peft import get_peft_model
 from transformers import AutoImageProcessor, SiglipForImageClassification
 
 import torch
@@ -35,8 +34,8 @@ if __name__ == "__main__":
     sys.excepthook = partial(handle_unhandled_exception,logger=logger)
 
     config = LoraConfig(
-        r=16,
-        lora_alpha=16,
+        r=args.r,
+        lora_alpha=args.r,
         lora_dropout=0.1,
         target_modules=["k_proj", "q_proj"],
         bias="none",
