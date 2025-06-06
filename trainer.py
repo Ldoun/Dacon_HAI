@@ -35,7 +35,7 @@ class Trainer():
                 self.model.save_pretrained(self.best_model_path)
                 torch.save({
                     'optimizer': self.optimizer.state_dict(),
-                    'scheduler': [] if isinstance(base) else self.scheduler.state_dict(),
+                    'scheduler': [] if isinstance(self.scheduler, base) else self.scheduler.state_dict(),
                     'epoch': epoch,
                     'score_val': score_val,
                     'loss_val': loss_val, 
@@ -51,7 +51,7 @@ class Trainer():
             self.model.save_pretrained(self.last_model_path)
             torch.save({
                 'optimizer': self.optimizer.state_dict(),
-                'scheduler': [] if isinstance(base) else self.scheduler.state_dict(),
+                'scheduler': [] if isinstance(self.scheduler, base) else self.scheduler.state_dict(),
                 'epoch': epoch,
                 'score_val': score_val,
                 'loss_val': loss_val, 
