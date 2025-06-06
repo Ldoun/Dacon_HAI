@@ -3,6 +3,7 @@ import sys
 import torch
 import numpy as np
 from tqdm import tqdm
+from lr_scheduler import base
 
 class Trainer():
     def __init__(self, train_loader, valid_loader, model, loss_fn, optimizer, scheduler, device, patience, epochs, result_path, fold_logger):
@@ -34,10 +35,10 @@ class Trainer():
                 self.model.save_pretrained(self.best_model_path)
                 torch.save({
                     'optimizer': self.optimizer.state_dict(),
-                    'scheduler': self.scheduler.state_dict(),
+                    'scheduler': [] if isinstance(base) else self.scheduler.state_dict(),
                     'epoch': epoch,
-                    'score_val': score_val.item(),
-                    'loss_val': loss_val.item(), 
+                    'score_val': score_val,
+                    'loss_val': loss_val, 
                 }, os.path.join(self.best_model_path, 'state.pt'))
                 bad_counter = 0
 
@@ -50,10 +51,10 @@ class Trainer():
             self.model.save_pretrained(self.last_model_path)
             torch.save({
                 'optimizer': self.optimizer.state_dict(),
-                'scheduler': self.scheduler.state_dict(),
+                'scheduler': [] if isinstance(base) else self.scheduler.state_dict(),
                 'epoch': epoch,
-                'score_val': score_val.item(),
-                'loss_val': loss_val.item(), 
+                'score_val': score_val,
+                'loss_val': loss_val, 
             }, os.path.join(self.last_model_path, 'state.pt'))
 
     def train_step(self):
