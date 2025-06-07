@@ -6,7 +6,7 @@ from tqdm import tqdm
 from lr_scheduler import base
 
 class Trainer():
-    def __init__(self, train_loader, valid_loader, model, loss_fn, optimizer, scheduler, device, patience, epochs, result_path, fold_logger):
+    def __init__(self, train_loader, valid_loader, model, loss_fn, optimizer, scheduler, device, patience, epochs, result_path, fold_logger, epoch=1):
         self.train_loader = train_loader
         self.valid_loader = valid_loader
         self.model = model
@@ -19,6 +19,7 @@ class Trainer():
         self.logger = fold_logger
         self.best_model_path = os.path.join(result_path, 'best_model')
         self.last_model_path = os.path.join(result_path, 'last_model')
+        self.epoch = epoch
     
     def train(self):
         best = np.inf

@@ -19,8 +19,7 @@ def args_for_train(parser):
     parser.add_argument('--scheduler', type=str, default='None')
     parser.add_argument('--warmup_epochs', type=int, default=10, help='number of warmup epoch of lr scheduler')
 
-    parser.add_argument('--continue_train', type=int, default=-1, help='continue training from fold x') 
-    parser.add_argument('--continue_from_folder', type=str, help='continue training from args.continue_from')
+    parser.add_argument('--continue_from', type=str, default=None, help='continue training from checkpoint')
 
 def get_args():
     parser = argparse.ArgumentParser()

@@ -41,6 +41,10 @@ if __name__ == "__main__":
         bias="none",
         modules_to_save=["classifier"],
     )
+
+    if args.continue_from is not None:
+        model = SiglipForImageClassification.from_pretrained(args.continue_from, num_labels=393).to(device)
+
     model = SiglipForImageClassification.from_pretrained('google/siglip2-giant-opt-patch16-384', num_labels=393).to(device)
     print(model)
     model = get_peft_model(model, config)
@@ -67,6 +71,14 @@ if __name__ == "__main__":
     optimizer = optim.Adam(model.parameters(), lr=args.lr)
     scheduler = get_sch(args.scheduler, optimizer)
 
+    if args.continue_from is not None:
+        state = torch.load(os.path.join(args.continue_from, 'state.pt'))
+        optimizer.load_state_dict(state['optimizer'])
+        # scheduler.load_state_dict(state['scheduler'])
+        epoch = state['epoch'] + 1
+    else:
+        epoch = 0
+
     train_loader = DataLoader(
         train_dataset, batch_size=args.batch_size, shuffle=True, num_workers=args.num_workers, #pin_memory=True
     )
@@ -75,7 +87,7 @@ if __name__ == "__main__":
     )
     
     trainer = Trainer(
-        train_loader, valid_loader, model, loss_fn, optimizer, scheduler, device, args.patience, args.epochs, result_path, logger)
+        train_loader, valid_loader, model, loss_fn, optimizer, scheduler, device, args.patience, args.epochs, result_path, logger, epoch=epoch)
     trainer.train() #start training
 
     # test_dataset = DataSet(file_list=test_data['path'].values, label=test_data['label'].values)
