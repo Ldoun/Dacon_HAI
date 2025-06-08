@@ -44,8 +44,9 @@ if __name__ == "__main__":
 
     if args.continue_from is not None:
         model = SiglipForImageClassification.from_pretrained(args.continue_from, num_labels=393).to(device)
-
-    model = SiglipForImageClassification.from_pretrained('google/siglip2-giant-opt-patch16-384', num_labels=393).to(device)
+    else:
+        model = SiglipForImageClassification.from_pretrained('google/siglip2-giant-opt-patch16-384', num_labels=393).to(device)
+        
     print(model)
     model = get_peft_model(model, config)
     
