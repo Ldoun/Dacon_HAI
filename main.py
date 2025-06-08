@@ -76,6 +76,7 @@ if __name__ == "__main__":
         optimizer.load_state_dict(state['optimizer'])
         # scheduler.load_state_dict(state['scheduler'])
         epoch = state['epoch'] + 1
+        print(f'starting from {epoch}-epoch')
     else:
         epoch = 0
 
