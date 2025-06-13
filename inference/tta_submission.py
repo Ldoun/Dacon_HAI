@@ -40,7 +40,7 @@ if __name__ == "__main__":
             valid_dataset, batch_size=32, shuffle=False, num_workers=4, #pin_memory=True
     )
 
-    model = SiglipForImageClassification.from_pretrained('result/0.00005_4_11/best_model', num_labels=393)
+    model = SiglipForImageClassification.from_pretrained('result/0.00005_4_11/best_model', num_labels=393).cuda()
     test_data = pd.read_csv('~/data/HAI/test.csv')
     test_data.tail()
         
