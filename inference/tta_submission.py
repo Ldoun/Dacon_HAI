@@ -61,7 +61,7 @@ if __name__ == "__main__":
 
             # TTA: horizontal flip
             images_flip = torch.flip(x, dims=[3])
-            outputs_flip = model(x).logits
+            outputs_flip = model(images_flip).logits
             probs_flip = F.softmax(outputs_flip, dim=1)
 
             # Average
