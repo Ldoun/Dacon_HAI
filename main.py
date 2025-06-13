@@ -56,7 +56,7 @@ if __name__ == "__main__":
     valid_dataset = ImageFolder(root=args.valid_path, transform=transform_test)
         
     loss_fn = nn.CrossEntropyLoss()
-    optimizer = optim.Adam(model.parameters(), lr=args.lr)
+    optimizer = optim.AdamW(model.parameters(), lr=args.lr)
     scheduler = get_sch(args.scheduler, optimizer)
 
     if args.continue_from is not None:
