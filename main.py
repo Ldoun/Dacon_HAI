@@ -12,10 +12,10 @@ from torch import optim, nn
 from torch.utils.data import DataLoader
 from torchvision import transforms
 
-from data import DataSet, ImageFolder
 from trainer import Trainer
 from config import get_args
 from lr_scheduler import get_sch
+from data import DataSet, ImageFolder, get_transforms
 from utils import seed_everything, handle_unhandled_exception, save_to_json
 
 if __name__ == "__main__":
@@ -50,20 +50,7 @@ if __name__ == "__main__":
     print(model)
     model = get_peft_model(model, config)
     
-    transform_train = transforms.Compose([
-        transforms.Resize((421, 421)),
-        transforms.RandomCrop(384, padding=8),
-        transforms.RandomHorizontalFlip(),
-        transforms.ToTensor(),
-        transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5)),
-    ])
-    
-    transform_test = transforms.Compose([
-        transforms.Resize((421, 421)),
-        transforms.CenterCrop(384),
-        transforms.ToTensor(),
-        transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5)),
-    ])
+    transform_train, transform_test = get_transforms() 
 
     train_dataset = ImageFolder(root=args.train_path, transform=transform_train)
     valid_dataset = ImageFolder(root=args.valid_path, transform=transform_test)
