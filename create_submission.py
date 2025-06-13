@@ -24,7 +24,7 @@ class TestDataset(Dataset):
         t_image = self.transform(image)
         return t_image
 
-model = SiglipForImageClassification.from_pretrained('../result/0.00005_4_11/best_model', num_labels=393)
+model = SiglipForImageClassification.from_pretrained('result/0.00005_4_11/best_model', num_labels=393)
 
 transform_test = transforms.Compose([
         transforms.Resize((421, 421)),
@@ -64,4 +64,4 @@ submission = pd.read_csv('~/data/HAI/sample_submission.csv')
 for i in range(concated.shape[1]):
     submission[idx_to_class[i]] = concated[:, i]
 
-submission.to_csv('0.00005_4_final.csv', index=False)
+submission.to_csv('inference/0.00005_4_final.csv', index=False)
