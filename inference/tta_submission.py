@@ -22,7 +22,7 @@ class TestDataset(Dataset):
         return len(self.df)
     
     def __getitem__(self, index):
-        image = Image.open(os.path.join('/home/20223185/data/HAI/', self.df.iloc[index]['img_path'][2:]))
+        image = Image.open(os.path.join('..HAI/', self.df.iloc[index]['img_path'][2:]))
         t_image = self.transform(image)
         return t_image
 
@@ -35,13 +35,13 @@ if __name__ == "__main__":
             transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5)),
     ])
         
-    valid_dataset = ImageFolder(root='~/data/HAI/valid', transform=transform_test)
+    valid_dataset = ImageFolder(root='..valid', transform=transform_test)
     valid_loader = DataLoader(
             valid_dataset, batch_size=32, shuffle=False, num_workers=4, #pin_memory=True
     )
 
-    model = SiglipForImageClassification.from_pretrained('result/0.00005_4_11/best_model', num_labels=393).cuda()
-    test_data = pd.read_csv('~/data/HAI/test.csv')
+    model = SiglipForImageClassification.from_pretrained('0.00005_4_11/best_model', num_labels=393).cuda()
+    test_data = pd.read_csv('../HAI/test.csv')
     test_data.tail()
         
     dataset = TestDataset(test_data, transform_test)
@@ -70,7 +70,7 @@ if __name__ == "__main__":
             results.append(probs_avg.detach().cpu().numpy())
 
     concated = np.concatenate(results)
-    submission = pd.read_csv('~/data/HAI/sample_submission.csv')
+    submission = pd.read_csv('../HAI/sample_submission.csv')
     for i in range(concated.shape[1]):
         submission[idx_to_class[i]] = concated[:, i]
 
