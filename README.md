@@ -1,7 +1,7 @@
 ### 데이터 Split
 - train set의 각 클래스의 10% 데이터를 랜덤하게 valid로 선별
 - 중복 클래스를 지우기 위해, 겹치는 클래스들의 폴더를 merge(ImageFolder 데이터셋을 사용하기 위함)
-- Split된 validation 데이터 목록은 validation.txt에 존재합니다.
+- Split된 validation 데이터 목록은 valid_data.txt에 존재합니다.
 
 ```python
 import os
