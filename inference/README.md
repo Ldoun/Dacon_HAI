@@ -3,6 +3,10 @@
 - 최종 모델은 생성된 모든 csv 파일의 평균입니다.
 
 ```python
+import numpy as np
+import pandas as pd
+from glob import glob
+
 files = glob('*.csv')
 v = 1/len(files)
 sub_df = pd.DataFrame()
