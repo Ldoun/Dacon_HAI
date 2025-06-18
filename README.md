@@ -1,4 +1,9 @@
-### 가상환경
+### 개발 환경
+- cuda 12.1
+- ubuntu 22.04
+- A100 & A5000
+
+### 라이브러리
 conda env create -f environment.yml
 
 ### 데이터 Split
