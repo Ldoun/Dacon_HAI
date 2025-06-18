@@ -45,3 +45,7 @@ python main.py --train_path ~/data/HAI/train --valid_path ~/data/HAI/valid --bat
 - hyper-parameters
   - learning rate (0.00005, 0.0001)
   - r (2 4 8 16 32 64)
+
+### 모델 공유
+https://drive.google.com/file/d/1hhQ8oxDOuWLc01zQGf4iKx2exNta7soa/view?usp=sharing
+학습한 모델을 위 zip 파일에 존재합니다. 위 모델의 evaluation은 inference folder 참고 부탁드립니다.
