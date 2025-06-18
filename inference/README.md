@@ -2,7 +2,8 @@
 - tta_submission.py: 나머지 모델에 적용
 - 최종 모델은 생성된 모든 csv 파일의 평균입니다.
 
-  ```python files = glob('*.csv')
+  ```python
+files = glob('*.csv')
 v = 1/len(files)
 sub_df = pd.DataFrame()
 
