@@ -52,7 +52,7 @@ valid_loader = DataLoader(
         valid_dataset, batch_size=32, shuffle=False, num_workers=4, #pin_memory=True
 )
 
-test_data = pd.read_csv('HAI/test.csv')
+test_data = pd.read_csv('../HAI/test.csv')
 test_data.tail()
     
 dataset = TestDataset(test_data, transform_test)
