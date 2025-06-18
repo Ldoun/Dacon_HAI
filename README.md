@@ -7,6 +7,21 @@ import os
 import shutil
 from glob import glob
 
+# making validation
+for folder in glob('train/*'):
+    files = glob(os.path.join(folder, '*'))
+    print(len(files))
+
+    print(int(len(files) * 0.1))
+
+    print(random.sample(files, int(len(files) * 0.1)))
+
+    for file in random.sample(files, int(len(files) * 0.1)):
+        os.makedirs(os.path.dirname(file.replace('train', 'test2')), exist_ok=True)
+        shutil.copy(file, file.replace('train', 'test2'))
+        os.remove(file)
+
+# merging columns
 for col1, col2 in [['K5_3세대_하이브리드_2020_2022', 'K5_하이브리드_3세대_2020_2023'], ['디_올뉴니로_2022_2025', '디_올_뉴_니로_2022_2025'], ['718_박스터_2017_2024', '박스터_718_2017_2024']]:
     files = glob(os.path.join('train', col1, '*'))
     for file in files:
