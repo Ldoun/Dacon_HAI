@@ -41,10 +41,11 @@ for col1, col2 in [['K5_3세대_하이브리드_2020_2022', 'K5_하이브리드_
 ```
 
 ### 학습
-python main.py --train_path ~/data/HAI/train --valid_path ~/data/HAI/valid --batch_size 16 --lr $learning_rate --r $r --num_workers 12 --model $trial_name
+python main.py --train_path $path_to_train --valid_path $path_to_valid --batch_size 16 --lr $learning_rate --r $r --num_workers 12 --model $trial_name
 - hyper-parameters
   - learning rate (0.00005, 0.0001)
   - r (2 4 8 16 32 64)
+  - batch_size gpu에 따라 8 혹은 16을 사용
 
 ### 모델 공유
 https://drive.google.com/file/d/1hhQ8oxDOuWLc01zQGf4iKx2exNta7soa/view?usp=sharing
