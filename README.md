@@ -17,8 +17,8 @@ for folder in glob('train/*'):
     print(random.sample(files, int(len(files) * 0.1)))
 
     for file in random.sample(files, int(len(files) * 0.1)):
-        os.makedirs(os.path.dirname(file.replace('train', 'test2')), exist_ok=True)
-        shutil.copy(file, file.replace('train', 'test2'))
+        os.makedirs(os.path.dirname(file.replace('train', 'val')), exist_ok=True)
+        shutil.copy(file, file.replace('train', 'val'))
         os.remove(file)
 
 # merging columns
