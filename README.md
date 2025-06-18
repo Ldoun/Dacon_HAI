@@ -1,3 +1,6 @@
+### 가상환경
+conda env create -f environment.yml
+
 ### 데이터 Split
 - train set의 각 클래스의 10% 데이터를 랜덤하게 valid로 선별
 - 중복 클래스를 지우기 위해, 겹치는 클래스들의 폴더를 merge(ImageFolder 데이터셋을 사용하기 위함)
