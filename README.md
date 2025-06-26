@@ -1,7 +1,7 @@
 ### 개발 환경
 - cuda 12.1
 - ubuntu 22.04
-- A100 & A5000
+- GPU: A100 & A5000
 
 ### 라이브러리
 conda env create -f environment.yml
