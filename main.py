@@ -17,6 +17,7 @@ from config import get_args
 from lr_scheduler import get_sch
 from data import DataSet, ImageFolder, get_transforms
 from utils import seed_everything, handle_unhandled_exception, save_to_json
+from create_valid import create_validation_folder
 
 if __name__ == "__main__":
     args = get_args()
@@ -32,6 +33,13 @@ if __name__ == "__main__":
     logger.info(args)
     save_to_json(vars(args), os.path.join(result_path, 'config.json'))
     sys.excepthook = partial(handle_unhandled_exception,logger=logger)
+
+    if not os.path.exists(os.path.join(args.data_path, 'valid')):
+        create_validation_folder(args.data_path)
+        logger.info('created validation folder')
+
+    args.train_path = os.path.join(args.data_path, 'train')
+    args.valid_path = os.path.join(args.data_path, 'valid')
 
     config = LoraConfig(
         r=args.r,

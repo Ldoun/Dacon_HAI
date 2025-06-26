@@ -10,7 +10,8 @@ conda env create -f environment.yml
 - train set의 각 클래스의 10% 데이터를 랜덤하게 valid로 선별
 - 중복 클래스를 지우기 위해, 겹치는 클래스들의 폴더를 merge(ImageFolder 데이터셋을 사용하기 위함)
 - Split된 validation 데이터 목록은 valid_data.txt에 존재합니다.
-
+    - 코드 검증을 위해 코드 실행 시 valid_data.txt를 기반으로 validation folder를 생성합니다.
+- validation folder 생성 예시 script입니다. (사용 x 코드 실행시 자동적으로 validation folder 생성합니다.)
 ```python
 import os
 import shutil
@@ -49,7 +50,7 @@ for col1, col2 in [['K5_3세대_하이브리드_2020_2022', 'K5_하이브리드_
 ```
 
 ### 학습
-python main.py --train_path $path_to_train --valid_path $path_to_valid --batch_size 16 --lr $learning_rate --r $r --num_workers 12 --model $trial_name
+python main.py --data_path $path_to_data --batch_size 16 --lr $learning_rate --r $r --num_workers 12 --model $trial_name
 - hyper-parameters
   - learning rate (0.00005, 0.0001)
   - r (2 4 8 16 32 64)

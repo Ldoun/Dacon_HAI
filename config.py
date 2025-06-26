@@ -2,8 +2,7 @@ import argparse
 from models import args_for_model
 
 def args_for_data(parser):
-    parser.add_argument('--train_path', type=str, default='../data/train.csv')
-    parser.add_argument('--valid_path', type=str, default='../data/train.csv')
+    parser.add_argument('--data_path', type=str, default='../data/HAI', help='path to data')
     parser.add_argument('--test', type=str, default='../data/test.csv')
     parser.add_argument('--submission', type=str, default='../data/sample_submission.csv')
     parser.add_argument('--path', type=str, default='../data')
