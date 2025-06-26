@@ -1,4 +1,5 @@
 import os
+import pickle
 import numpy as np
 import pandas as pd
 from tqdm import tqdm
@@ -47,11 +48,6 @@ transform_test = transforms.Compose([
         transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5)),
     ])
 
-valid_dataset = ImageFolder(root='../HAI/valid', transform=transform_test)
-valid_loader = DataLoader(
-        valid_dataset, batch_size=32, shuffle=False, num_workers=4, #pin_memory=True
-)
-
 test_data = pd.read_csv('../HAI/test.csv')
 test_data.tail()
     
@@ -69,7 +65,8 @@ with torch.no_grad():
         output = model(x).logits.softmax(dim=-1).detach().cpu().numpy()
         result.append(output)
 
-idx_to_class = {v: k for k, v in valid_dataset.class_to_idx.items()}
+with open('dat.pickle', mode='rb') as f:
+    idx_to_class = pickle.load(f)
 
 concated = np.concatenate(result)
 

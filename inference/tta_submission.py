@@ -1,4 +1,5 @@
 import os
+import pickle
 import numpy as np
 import pandas as pd
 from tqdm import tqdm
@@ -35,11 +36,7 @@ if __name__ == "__main__":
             transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5)),
     ])
         
-    valid_dataset = ImageFolder(root='..valid', transform=transform_test)
-    valid_loader = DataLoader(
-            valid_dataset, batch_size=32, shuffle=False, num_workers=4, #pin_memory=True
-    )
-
+    
     model = SiglipForImageClassification.from_pretrained('0.00005_4_11/best_model', num_labels=393).cuda()
     test_data = pd.read_csv('../HAI/test.csv')
     test_data.tail()
@@ -48,7 +45,9 @@ if __name__ == "__main__":
     loader = DataLoader(
         dataset, batch_size=32, shuffle=False, num_workers=4, #pin_memory=True
     )
-    idx_to_class = {v: k for k, v in valid_dataset.class_to_idx.items()}
+    
+    with open('dat.pickle', mode='rb') as f:
+        idx_to_class = pickle.load(f)
 
     results = []
     with torch.no_grad():
