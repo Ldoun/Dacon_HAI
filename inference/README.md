@@ -1,5 +1,7 @@
 - ?_1과 ?_4 폴더 모델의 경우 create_submission.py 을 활용하셔야 합니다.
+    - 위 모델들의 경우 --model $model_path/best_model.pt 로 경로를 지정하셔야 합니다.
 - 나머지 모델의 경우 tta_submission.py을 활용하셔야 합니다.
+    - 위 모델들의 경우 --model $model_path/best_model 로 경로를 지정하셔야 합니다.
 - 최종 모델은 생성된 모든 csv 파일의 평균입니다.
 
 ### 실행
