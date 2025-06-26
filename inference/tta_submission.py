@@ -46,7 +46,7 @@ if __name__ == "__main__":
         
     dataset = TestDataset(test_data, transform_test)
     loader = DataLoader(
-        dataset, batch_size=128, shuffle=False, num_workers=4, #pin_memory=True
+        dataset, batch_size=128, shuffle=False, num_workers=12, #pin_memory=True
     )
     
     with open('data.pickle', mode='rb') as f:
@@ -76,4 +76,4 @@ if __name__ == "__main__":
     for i in range(concated.shape[1]):
         submission[idx_to_class[i]] = concated[:, i]
 
-    submission.to_csv('0.00005_4_final_TTA.csv', index=False)
+    submission.to_csv(args.output, index=False)
