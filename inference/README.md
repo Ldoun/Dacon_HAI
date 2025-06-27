@@ -11,7 +11,7 @@ example: python create_submission.py --data_path ../../data/HAI/ --model ../../H
 
 python tta_submission.py --data_path $data_path --model $model_path --output $output_submission_file:
 
-example: python create_submission.py --data_path ../../data/HAI/ --model ../../HAI_Final_Models/0.00005_4_11/best_model --output 2.csv
+example: python tta_submission.py --data_path ../../data/HAI/ --model ../../HAI_Final_Models/0.00005_4_11/best_model --output 2.csv
 
 ```python
 import numpy as np
